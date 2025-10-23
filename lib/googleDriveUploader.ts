@@ -23,7 +23,7 @@ export async function authenticateWithGoogleDrive(clientId: string): Promise<gap
   });
 }
 
-export async function uploadFileToDrive(file: File, filename: string): Promise<void> {
+export async function uploadFileToDrive(file: File, filename: string): Promise<string> {
   const metadata = {
     name: filename,
     mimeType: file.type,
@@ -37,11 +37,15 @@ export async function uploadFileToDrive(file: File, filename: string): Promise<v
   );
   form.append("file", file);
 
-  const res = await fetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id", {
-    method: "POST",
-    headers: new Headers({ Authorization: `Bearer ${accessToken}` }),
-    body: form,
-  });
+  // 1️⃣ Upload file to Drive
+  const res = await fetch(
+    "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id",
+    {
+      method: "POST",
+      headers: new Headers({ Authorization: `Bearer ${accessToken}` }),
+      body: form,
+    }
+  );
 
   if (!res.ok) {
     const error = await res.json();
@@ -50,4 +54,25 @@ export async function uploadFileToDrive(file: File, filename: string): Promise<v
 
   const result = await res.json();
   console.log("✅ File uploaded with ID:", result.id);
+
+  // 2️⃣ Make it publicly shareable
+  await fetch(`https://www.googleapis.com/drive/v3/files/${result.id}/permissions`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      role: "reader",
+      type: "anyone",
+    }),
+  });
+
+  // 3️⃣ Build shareable link
+  const driveUrl = `https://drive.google.com/file/d/${result.id}/view?usp=sharing`;
+  console.log("✅ Shareable link:", driveUrl);
+
+  // 4️⃣ Return this URL to save in Google Sheet
+  return driveUrl;
 }
+

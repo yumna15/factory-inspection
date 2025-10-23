@@ -3,7 +3,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import SignaturePad from 'signature_pad';
 import { generateInspectionPDF } from '@/lib/pdfGenerator';
-import { uploadRowToSheet } from '@/lib/sheetsUploader';
+
+import { uploadRowToSheet } from '@/lib/googleSheetUploader';
+;
 import { Listbox } from '@headlessui/react';
 import Image from 'next/image';
 import logo from '@/images/logo.jpeg';
