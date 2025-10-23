@@ -1,0 +1,39 @@
+{
+  "name": "factory",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": "18.x"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && next export",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.2.6",
+    "gapi": "^0.0.3",
+    "jose": "^6.0.12",
+    "jsonwebtoken": "^9.0.2",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
+    "next": "^15.4.4",
+    "pdf-lib": "^1.17.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-signature-canvas": "^1.1.0-alpha.2",
+    "signature_pad": "^5.0.10"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/gapi": "^0.0.47",
+    "@types/gapi.auth2": "^0.0.61",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
