@@ -1,14 +1,11 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  // Enable static HTML export
-  output: "export",
-
-  // Optional: if you’re using images or client-side routes, add basePath
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'export',
   images: {
-    unoptimized: true, // required when using 'next export'
+    unoptimized: true,
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
+
 
